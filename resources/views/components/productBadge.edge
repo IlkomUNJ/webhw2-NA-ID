@@ -1,0 +1,19 @@
+{{-- Product Badge --}}
+{{-- Props:
+  - brand: string (optional, default: 'AEZY')
+  - class: string (optional) - additional classes to customize the badge appearance
+--}}
+
+@let(brandName = $props.brand || 'AEZY')
+@let(badgeStyle = 'text-base flex justify-center items-center py-1 px-2 rounded-2xl font-semibold')
+@let(brandStyles = {
+  'AEZY': 'bg-blue-100 text-blue-900',
+  'LITEX': 'bg-gray-900 text-gray-50',
+  'AIRLX': 'bg-gray-50 text-gray-900',
+})
+@let(combinedClass = `${badgeStyle} ${brandStyles[brandName] ?? 'bg-gray-300 text-gray-900'}`)
+@let(className = twMerge(combinedClass, $props.class || ''))
+
+<div class="{{ className }}">
+  {{ brandName }}
+</div>

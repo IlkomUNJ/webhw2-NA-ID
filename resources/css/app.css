@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import 'tailwindcss';
+@source "../views";
+
+@theme {
+  --font-sans:
+    'Montserrat', 'Inter', Arial, Helvetica, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --color-gray-900: #070708;
+  --color-gray-800: #1a1b1e;
+  --color-gray-700: #2d2f33;
+  --color-gray-600: #53565e;
+  --color-gray-500: #72757d;
+  --color-gray-400: #91949c;
+  --color-gray-300: #aaadb5;
+  --color-gray-200: #c6c8ce;
+  --color-gray-100: #e8e8ea;
+  --color-gray-50:  #f5f5f5;
+
+  --color-green-900: #10221a;
+  --color-green-800: #112f21;
+  --color-green-700: #1a3e2d;
+  --color-green-600: #234c39;
+  --color-green-500: #325c48;
+  --color-green-400: #507362;
+  --color-green-300: #7a9588;
+  --color-green-200: #a4b6ad;
+  --color-green-100: #c1cec7;
+
+  --color-blue-900: #0b1c28;
+  --color-blue-800: #1a3b4e;
+  --color-blue-700: #285974;
+  --color-blue-600: #39718f;
+  --color-blue-500: #5598ba;
+  --color-blue-400: #6ea8c4;
+  --color-blue-300: #87b7ce;
+  --color-blue-200: #accede;
+  --color-blue-100: #d1e5ed;
+}
+
+/* Carousel styles */
+.slide {
+  @apply flex-[0_0_100%] w-full;
+}
+
+.slide img {
+  @apply w-full h-[85vh] block object-cover;
+}
+
+.dot {
+  @apply w-2 h-2 rounded-full border-0 bg-gray-100/55 cursor-pointer p-0 transition-all duration-300;
+}
+
+.dot.active {
+  @apply bg-gray-100 w-[18px];
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  /* For Chrome, Safari, Edge, and other WebKit browsers */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-900; /* Use Tailwind colors */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-md; /* Use Tailwind colors & utilities */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+}

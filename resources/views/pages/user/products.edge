@@ -1,0 +1,63 @@
+
+@layout.app({ title: "Products" })
+  @slot('meta')
+    @if(products.length > 0)
+      @vite(['resources/js/products.js', 'resources/js/productCard.js'])
+    @endif
+  @endslot
+  
+  @slot('main')
+    <main class="flex flex-col flex-grow items-center self-stretch py-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-8">
+        Our Products
+      </h1>
+      <div class="w-full max-w-[1200px] mx-auto px-4 md:px-8 my-8">
+        <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 border-b-2 border-gray-300 pb-4">
+          <button
+            class="tab-button bg-gray-900 text-gray-100 font-semibold px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded-lg transition-all duration-300 cursor-pointer hover:bg-gray-100 hover:text-gray-900 hover:-translate-y-0.5 active"
+            data-tab="all"
+          >All Products</button>
+          <button
+            class="tab-button bg-transparent text-gray-700 font-medium px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded-lg transition-all duration-300 cursor-pointer hover:bg-gray-100 hover:text-gray-900 hover:-translate-y-0.5"
+            data-tab="aezy"
+          >AEZY</button>
+          <button
+            class="tab-button bg-transparent text-gray-700 font-medium px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded-lg transition-all duration-300 cursor-pointer hover:bg-gray-100 hover:text-gray-900 hover:-translate-y-0.5"
+            data-tab="litex"
+          >LITEX</button>
+          <button
+            class="tab-button bg-transparent text-gray-700 font-medium px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded-lg transition-all duration-300 cursor-pointer hover:bg-gray-100 hover:text-gray-900 hover:-translate-y-0.5"
+            data-tab="airlx"
+          >AIRLX</button>
+        </div>
+
+        <div class="tab-content w-full">
+          <div class="tab-pane block animate-[fadeIn_0.3s_ease-in-out] active" id="all">
+            <div class="product-grid grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 py-4">
+              @each(product in products)
+                @!productCard({
+                  id: product.id,
+                  brand: product.brand,
+                  name: product.name,
+                  description: product.description,
+                  imageUrl: product.image_url,
+                  price: product.price,
+                  inWishlist: wishlistItems.includes(product.id),
+                  class: 'product-card'
+                })
+              @endeach
+            </div>
+          </div>
+
+          @let(brandTabs = [ 'aezy', 'litex', 'airlx' ])
+          @each(brand in brandTabs)
+            <div class="tab-pane hidden animate-[fadeIn_0.3s_ease-in-out]" id="{{ brand }}">
+              <div class="product-grid grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 py-4">
+              </div>
+            </div>
+          @end
+        </div>
+      </div>
+    </main>
+  @endslot
+@end

@@ -1,0 +1,46 @@
+{{-- Product Card --}}
+{{-- Props:
+  - brand: string (optional, default: 'AEZY')
+  - name: string (optional, default: 'T-Shirt')
+  - image: string (optional, default: '585f803dcfb44114a87195d2b69c3df6~.jpeg')
+  - price: integer (optional, default: 199000)
+--}}
+
+@let(props = $props || {})
+@let(id = props.id || 1)
+@let(brandName = props.brand.toUpperCase() || 'AEZY')
+@let(productName = props.name || 'T-Shirt')
+@let(productDescription = props.description || 'A comfortable and stylish t-shirt perfect for everyday wear.')
+@let(productImage = props.imageUrl || props.image_url  || 'aezy_tshirt_white.jpeg')
+@let(price = props.price || 199000)
+@let(inWishlist = props.inWishlist || false)
+@let(className = twMerge('bg-gray-100 rounded-4xl flex flex-col p-4 items-center gap-3 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-xl', props.class || ''))
+
+<div class="{{ className }}" data-brand="{{ brandName.toLowerCase() }}">
+  <img
+    class="w-96 h-auto object-cover rounded-3xl"
+    src="{{ asset(productImage) }}"
+    alt="{{ brandName }} {{ productName }}"
+  />
+  <div class="flex flex-col px-2 items-start self-stretch gap-1">
+    <div class="flex items-center gap-2 self-stretch font-semibold">
+      @!productBadge({brand: brandName})
+      <h2 class="text-2xl text-gray-900 text-left">
+        {{ productName }}
+      </h2>
+      <button
+        class="ml-auto p-1 rounded-full cursor-pointer hover:bg-gray-50 transition-colors duration-300 {{ inWishlist ? 'fill-red-500 stroke-red-500' : 'fill-transparent stroke-gray-900' }}"
+        data-product-id="{{ id }}"
+      >
+        <svg class="size-6 stroke-[0.2rem]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            d="M4.536 5.778a5 5 0 0 1 7.07 0q.275.274.708.682q.432-.408.707-.682a5 5 0 0 1 7.125 7.016L13.02 19.92a1 1 0 0 1-1.414 0L4.48 12.795a5 5 0 0 1 .055-7.017z"
+          />
+        </svg>
+      </button>
+    </div>
+    <p class="text-xl font-medium text-left">
+      {{ Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(price) }}
+    </p>
+  </div>
+</div>

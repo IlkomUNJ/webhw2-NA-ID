@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="resources/images/NoVoidMindsLogo-white.svg"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="resources/images/NoVoidMindsLogo-black.svg"
+      media="(prefers-color-scheme: light)"
+    />
+    <title>
+      {{ title || "Crafted to Perfection" }} - No Void Minds
+    </title>
+
+    @if ($slots.meta)
+      {{{ await $slots.meta() }}}
+    @endif
+    
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+  </head>
+  <body
+    class="bg-gray-50 text-gray-900 leading-normal flex flex-col min-h-screen m-0 p-0 box-border font-sans"
+  >
+    @include('partials/header')
+
+    {{{ await $slots.main() }}}
+    @include('partials/footer')
+  </body>
+</html>

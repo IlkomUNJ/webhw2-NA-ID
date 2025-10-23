@@ -1,0 +1,107 @@
+@layout.admin({ title: "Edit Product" })
+  @slot('meta')
+  @endslot
+  
+  @slot('main')
+    <main class="flex flex-col grow self-stretch font-sans p-8">
+      <h1 class="font-semibold text-gray-900 text-3xl mb-2 flex items-center gap-2">
+        <a href="{{ route('adminProducts') }}" class="hover:-translate-x-1 transition-all duration-300">
+          <svg class="size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="48"
+              d="M328 112L184 256l144 144"
+            />
+          </svg>
+        </a>
+        Edit Product - {{product.brand.toUpperCase()}} {{ product.name }}
+      </h1>
+
+      <form action="{{ route('updateProduct', { id: product.id }) }}" method="POST">
+        <div class="flex flex-col gap-4 mb-4">
+          <div>
+            <label for="brand" class="block text-sm font-medium text-gray-700">Brand</label>
+            <select
+              name="brand"
+              id="brand"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white"
+              required
+            >
+              @each (brand in brands)
+                <option value="{{ brand.brand }}" {{ brand.brand === product.brand ? 'selected' : '' }}>
+                  {{ brand.brand.toUpperCase() }}
+                </option>
+              @endeach
+            </select>
+          </div>
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value="{{ product.name }}"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white"
+              required
+            />
+          </div>
+          <div>
+            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea
+              name="description"
+              id="description"
+              rows="3"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white"
+              required
+            >{{ product.description }}</textarea>
+          </div>
+          <div>
+            <label for="color" class="block text-sm font-medium text-gray-700">Color</label>
+            <input
+            type="text"
+            name="color"
+            id="color"
+            value="{{ product.color }}"
+            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white"
+            required
+            />
+          </div>
+          <div>
+            <label for="price" class="block text-sm font-medium text-gray-700">Price (IDR)</label>
+            <input
+              type="number"
+              name="price"
+              id="price"
+              value="{{ product.price }}"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white"
+              required
+              min="0"
+              step="500"
+            />
+          </div>
+          <div>
+            <label for="image_url" class="block text-sm font-medium text-gray-700">Image URL</label>
+            <input
+              type="text"
+              name="image_url"
+              id="image_url"
+              value="{{ product.image_url }}"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white"
+              pattern=".+\.(?:webp|jpg|jpeg|png)$"
+              required
+            />
+          </div>
+          <div class="flex justify-end">
+          <button
+            type="submit"
+            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+          >
+            Update Product
+          </button>
+      </form>
+    </main>
+  @endslot
+@end

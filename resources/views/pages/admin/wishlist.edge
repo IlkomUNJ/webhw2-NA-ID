@@ -1,0 +1,68 @@
+@layout.admin({ title: "Wishlist" })
+  @slot('meta')
+  @endslot
+  
+  @slot('main')
+    <main class="flex flex-col grow self-stretch justify-start items-center font-sans px-16 py-16">
+      <table class="min-w-full bg-white border border-gray-300 rounded-2xl shadow-md overflow-hidden">
+          <thead>
+            <tr class="bg-gray-100 text-gray-700">
+              <th class="py-3 px-6 border-b border-gray-300 text-left">
+                ID
+              </th>
+              <th class="py-3 px-6 border-b border-gray-300 text-left">
+                Name
+              </th>
+              <th class="py-3 px-6 border-b border-gray-300 text-left">
+                Brand
+              </th>
+              <th class="py-3 px-6 border-b border-gray-300 text-left">
+                Color
+              </th>
+              <th class="py-3 px-6 border-b border-gray-300 text-left">
+                Price
+              </th>
+              <th class="py-3 px-6 border-b border-gray-300 text-left">
+                Guest ID
+              </th>
+              <th class="py-3 px-6 border-b border-gray-300 text-left">
+                Added At
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(product in wishlistItems)
+              <tr class="hover:bg-gray-100">
+                <td class="py-3 px-6 border-b border-gray-300">
+                  {{ product.id }}
+                </td>
+                <td class="py-3 px-6 border-b border-gray-300">
+                  {{ product.name }}
+                </td>
+                <td class="py-3 px-6 border-b border-gray-300">
+                  @!productBadge({ brand: product.brand.toUpperCase(), class: 'inline-flex justify-center items-center' })
+                </td>
+                <td class="py-3 px-6 border-b border-gray-300">
+                  {{ product.color[0].toUpperCase() + product.color.slice(1) }}
+                </td>
+                <td class="py-3 px-6 border-b border-gray-300">
+                  {{ Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.price) }}
+                </td>
+                <td class="py-3 px-6 border-b border-gray-300">
+                  {{ product.guest_id }}
+                </td>
+                <td class="py-3 px-6 border-b border-gray-300">
+                  {{ new Date(product.added_at).toLocaleString('id-ID') }}
+                </td>
+              </tr>
+            @endeach
+            <tr class="hover:bg-gray-100 cursor-pointer" id="add-product">
+              <td colspan="6" class="py-3 px-6 text-center text-gray-500">
+                Add Products
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </main>
+  @endslot
+@end
